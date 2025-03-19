@@ -1,15 +1,15 @@
-from argparse import Namespace
-from idlelib.iomenu import encoding
 import argparse
+from argparse import Namespace
+import sys
 
 from  vigenere import *
 
 
 def parser_create() -> Namespace:
     """
-    parser
+    Parser
 
-    :return: parsed arguments
+    :return: Parsed arguments
     """
 
     parser = argparse.ArgumentParser()
@@ -25,20 +25,38 @@ def read_text(filename: str) -> str:
     """
     Text reading function.
 
-    :return: The input text.
+    :param filename: Path to the text to be read
+    :return: The input text
     """
-    with open(filename, 'r', encoding='utf-8') as text:
-        return text.read()
 
+    try:
+
+        with open(filename, 'r', encoding='utf-8') as text:
+            return text.read()
+
+    except:
+
+        print(f"File '{filename}' not found.")
+        sys.exit(1)
 
 def write_encrypted_text(filename: str, text: str) -> None:
     """
     Function to write text to file.
 
+    :param filename: Path to the file where the text will be saved.
+    :param text: Encrypted text
+    :return: None
     """
 
-    with open(filename, 'w', encoding='utf-8') as file:
-        file.write(text)
+    try:
+
+        with open(filename, 'w', encoding='utf-8') as file:
+            file.write(text)
+
+    except Exception as e:
+
+        print(f"Error writing to file '{filename}': {e}")
+        sys.exit(1)
 
 
 def main():

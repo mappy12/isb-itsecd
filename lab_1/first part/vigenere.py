@@ -1,6 +1,6 @@
-ALPHABET = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й',
-    'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф',
-    'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+from multiprocessing.managers import Value
+
+from const import ALPHABET
 
 
 def repeat_key(key: str, length: int) -> str:
@@ -11,6 +11,8 @@ def repeat_key(key: str, length: int) -> str:
     :param length: The length to which the key should be repeated.
     :return: The repeated key of the required length.
     """
+    if not key:
+        raise ValueError("Key can't be empty!")
 
     repeated_key = ""
 
@@ -31,9 +33,14 @@ def get_encrypted_symb(old_sym: str, key_sym: str) -> str:
     """
 
     if old_sym.isalpha():
+        try:
 
-        current_idx = ALPHABET.index(old_sym.lower())
-        key_idx = ALPHABET.index(key_sym.lower())
+            current_idx = ALPHABET.index(old_sym.lower())
+            key_idx = ALPHABET.index(key_sym.lower())
+
+        except:
+
+            raise ValueError(f"Character '{old_sym}' or '{key_sym}' not found in alphabet.")
 
         if current_idx + key_idx >= len(ALPHABET):
 
@@ -65,8 +72,14 @@ def get_decrypted_symb(encrypted_sym: str, key_sym: str) -> str:
 
     if encrypted_sym.isalpha():
 
-        encrypted_idx = ALPHABET.index(encrypted_sym.lower())
-        key_idx = ALPHABET.index(key_sym.lower())
+        try:
+
+            encrypted_idx = ALPHABET.index(encrypted_sym.lower())
+            key_idx = ALPHABET.index(key_sym.lower())
+
+        except:
+
+            raise ValueError(f"Character '{encrypted_sym}' or '{key_sym}' not found in alphabet.")
 
         if encrypted_idx - key_idx < 0:
 
@@ -96,6 +109,14 @@ def vigenere_cipher_encrypt(input_text: str, key: str) -> str:
     :return: The encrypted text.
     """
 
+    if not input_text:
+
+        raise ValueError("Input text can't be empty")
+
+    if not key:
+
+        raise ValueError("Key can't be empty")
+
     encrypted_text = ""
 
     repeated_key = repeat_key(key, len(input_text))
@@ -117,6 +138,14 @@ def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
     :param key: The encryption key.
     :return: The decrypted text.
     """
+
+    if not encrypted_text:
+
+        raise ValueError("Encrypted text can't be empty")
+
+    if not key:
+
+        raise ValueError("Key can't be empty")
 
     decrypted_text = ""
 

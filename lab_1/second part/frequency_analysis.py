@@ -1,16 +1,5 @@
 import json
-
-
-RUSSIAN_FREQ = {
-    ' ': 0.128675, 'о': 0.096456, 'и': 0.075312, 'е': 0.072292, 'а': 0.064841,
-    'н': 0.061820, 'т': 0.061619, 'с': 0.051953, 'р': 0.040677, 'в': 0.039267,
-    'м': 0.029803, 'л': 0.029400, 'д': 0.026983, 'я': 0.026379, 'к': 0.025977,
-    'п': 0.024768, 'з': 0.015908, 'ы': 0.015707, 'ь': 0.015103, 'у': 0.013290,
-    'ч': 0.011679, 'ж': 0.010673, 'г': 0.009867, 'х': 0.008659, 'ф': 0.007249,
-    'й': 0.006847, 'ю': 0.006847, 'б': 0.006645, 'ц': 0.005034, 'ш': 0.004229,
-    'щ': 0.003625, 'э': 0.002416, 'ъ': 0.000000
-}
-
+from multiprocessing.managers import Value
 
 
 def save_freq_to_json(filename: str, d: dict) -> None:
@@ -33,8 +22,15 @@ def load_freq_from_json(filename: str) -> dict:
     :return: The dictionary containing character frequencies.
     """
 
-    with open(filename, 'r', encoding='utf-8') as file:
-        return json.load(file)
+    try:
+
+        with open(filename, 'r', encoding='utf-8') as file:
+            return json.load(file)
+
+    except FileNotFoundError:
+
+        print(f"File '{filename}' not found.")
+        raise
 
 
 def calculate_freq(text: str) -> dict:
@@ -44,6 +40,9 @@ def calculate_freq(text: str) -> dict:
     :param text: The input text.
     :return: A dictionary mapping characters to their frequency in the text.
     """
+
+    if not text:
+        raise ValueError("Input text can't be empty.")
 
     sym_counts = {}
 
@@ -83,6 +82,9 @@ def create_encrypt_rus_dict(encrypt_freq: dict, rus_freq: dict) -> dict:
     :return: A dictionary mapping encrypted characters to Russian characters.
     """
 
+    if not encrypt_freq or not rus_freq:
+        raise ValueError("Input dictionaries cannot be empty.")
+
     encrypt_rus_dict = {}
 
     encrypt_freq_list = list(encrypt_freq.items())
@@ -103,6 +105,12 @@ def decrypt_text(encrypted_text: str, d: dict) -> str:
     :param d: A dictionary mapping encrypted characters to decrypted characters.
     :return: The decrypted text.
     """
+
+    if not encrypted_text:
+        raise ValueError("Encrypted text can't be empty.")
+
+    if not d:
+        raise ValueError("Dictionary cannot be empty.")
 
     decrypted_text = []
 
