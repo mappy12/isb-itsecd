@@ -8,12 +8,12 @@ RUSSIAN_FREQ = {
     'щ': 0.003625, 'э': 0.002416, 'ъ': 0.000000
 }
 
-rus_freq_json = 'frequencies/russian_freq.json'
+RUS_FREQ_JSON = 'frequencies/russian_freq.json'
 
-encrypted_text_txt = 'texts_and_key/encrypted_text.txt'
+ENCRYPTED_TEXT_TXT = 'texts_and_key/encrypted_text.txt'
 
-encrypted_freq_json = 'frequencies/encrypted_freq.json'
+ENCRYPTED_FREQ_JSON = 'frequencies/encrypted_freq.json'
 
-key_json = 'texts_and_key/key.json'
+KEY_JSON = 'texts_and_key/key.json'
 
-decrypted_text_txt = 'texts_and_key/decrypted_text.txt'
+DECRYPTED_TEXT_TXT = 'texts_and_key/decrypted_text.txt'

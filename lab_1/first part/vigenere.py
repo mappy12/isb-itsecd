@@ -1,5 +1,3 @@
-from multiprocessing.managers import Value
-
 from const import ALPHABET
 
 

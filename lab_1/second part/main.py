@@ -45,24 +45,24 @@ def read_file(filename: str) -> str:
 
 def main():
 
-    save_freq_to_json(rus_freq_json, RUSSIAN_FREQ)
+    save_freq_to_json(RUS_FREQ_JSON, RUSSIAN_FREQ)
 
-    encrypted_text = read_file(encrypted_text_txt)
+    encrypted_text = read_file(ENCRYPTED_TEXT_TXT)
 
     text_freq = calculate_freq(encrypted_text)
 
-    save_freq_to_json(encrypted_freq_json, text_freq)
+    save_freq_to_json(ENCRYPTED_FREQ_JSON, text_freq)
 
-    rus_dict = load_freq_from_json(rus_freq_json)
-    encrypt_dict = load_freq_from_json(encrypted_freq_json)
+    rus_dict = load_freq_from_json(RUS_FREQ_JSON)
+    encrypt_dict = load_freq_from_json(ENCRYPTED_FREQ_JSON)
 
     encrypt_rus_dict = create_encrypt_rus_dict(encrypt_dict, rus_dict)
 
-    key = load_freq_from_json(key_json)
+    key = load_freq_from_json(KEY_JSON)
 
     decrypted_text = decrypt_text(encrypted_text, key)
 
-    write_encrypted_text(decrypted_text_txt, decrypted_text)
+    write_encrypted_text(DECRYPTED_TEXT_TXT, decrypted_text)
 
 
 if __name__ == '__main__':
