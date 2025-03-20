@@ -1,5 +1,4 @@
 import json
-from multiprocessing.managers import Value
 
 
 def save_freq_to_json(filename: str, d: dict) -> None:

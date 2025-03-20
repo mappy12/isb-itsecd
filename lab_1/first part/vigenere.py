@@ -1,24 +1,18 @@
 from const import ALPHABET
 
 
-def repeat_key(key: str, length: int) -> str:
+def get_key_symb(key: str, index: int) -> str:
     """
-    Repeats the key until it reaches the required length.
+    Returns the character from the key based on the index.
 
     :param key: The original key.
-    :param length: The length to which the key should be repeated.
-    :return: The repeated key of the required length.
+    :param index: The index of the character in the text.
+    :return: The corresponding character from the key.
     """
     if not key:
         raise ValueError("Key can't be empty!")
 
-    repeated_key = ""
-
-    while len(repeated_key) < length:
-
-        repeated_key += key
-
-    return repeated_key
+    return key[index % len(key)]
 
 
 def get_encrypted_symb(old_sym: str, key_sym: str) -> str:
@@ -117,12 +111,10 @@ def vigenere_cipher_encrypt(input_text: str, key: str) -> str:
 
     encrypted_text = ""
 
-    repeated_key = repeat_key(key, len(input_text))
-
     for i in range(len(input_text)):
 
         text_sym = input_text[i]
-        key_sym = repeated_key[i]
+        key_sym = get_key_symb(key, i)
 
         encrypted_text += get_encrypted_symb(text_sym, key_sym)
 
@@ -147,12 +139,10 @@ def vigenere_cipher_decrypt(encrypted_text: str, key: str) -> str:
 
     decrypted_text = ""
 
-    repeated_key = repeat_key(key, len(encrypted_text))
-
     for i in range(len(encrypted_text)):
 
         encrypted_sym = encrypted_text[i]
-        key_sym = repeated_key[i]
+        key_sym = get_key_symb(key, i)
 
         decrypted_text += get_decrypted_symb(encrypted_sym, key_sym)
 

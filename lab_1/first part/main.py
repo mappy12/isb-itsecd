@@ -1,6 +1,6 @@
 import argparse
-from argparse import Namespace
 import sys
+from argparse import Namespace
 
 from  vigenere import *
 
@@ -63,7 +63,7 @@ def main():
 
     args = parser_create()
 
-    key = read_text(args.key)
+    key = read_text(args.key_filename)
     input_text = read_text(args.input_text)
     encrypted_text = vigenere_cipher_encrypt(input_text, key)
     output_text = args.output_text
