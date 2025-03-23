@@ -1,6 +1,8 @@
 import argparse
-import sys
+
 from argparse import Namespace
+
+import sys
 
 from  vigenere import *
 
@@ -38,6 +40,7 @@ def read_text(filename: str) -> str:
 
         print(f"File '{filename}' not found.")
         sys.exit(1)
+
 
 def write_encrypted_text(filename: str, text: str) -> None:
     """
