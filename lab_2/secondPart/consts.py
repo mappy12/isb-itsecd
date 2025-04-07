@@ -1,0 +1,1 @@
+CPP_sequence_txt = "../firstPart/CPP_sequence.txt"
