@@ -6,6 +6,12 @@ from consts import *
 
 
 def read_file(filename: str) -> str:
+    """
+    Reads the sequence
+
+    :param filename: Path to the file to read.
+    :return: The sequence
+    """
 
     try:
 
@@ -18,6 +24,13 @@ def read_file(filename: str) -> str:
 
 
 def write_file(filename: str, text: str) -> None:
+    """
+    Writes the given text to a file.
+
+    :param filename: Path to the file to write to.
+    :param text: The text
+    :return: None
+    """
 
     try:
 
@@ -30,6 +43,12 @@ def write_file(filename: str, text: str) -> None:
 
 
 def frequency_bit_test(sequence: str) -> float:
+    """
+    Performs a frequency bit test
+
+    :param sequence: The bit sequence
+    :return: P-value
+    """
 
     n = len(sequence)
 
@@ -44,6 +63,12 @@ def frequency_bit_test(sequence: str) -> float:
 
 
 def runs_test(sequence: str) -> float:
+    """
+    Performs a test for identical consecutive bits.
+
+    :param sequence: The sequence
+    :return: P-value
+    """
 
     p_value = 0
 
@@ -68,6 +93,12 @@ def runs_test(sequence: str) -> float:
 
 
 def block_run_test(sequence: str) -> float:
+    """
+    Performs a test for the longest sequence of ones in a block.
+
+    :param sequence: The sequence
+    :return: P-value
+    """
 
     n = len(sequence)
 
@@ -123,8 +154,31 @@ def block_run_test(sequence: str) -> float:
 def main():
 
     cpp_sequence = read_file(cpp_sequence_txt)
-    print("Последовательность:", cpp_sequence)
-    print(block_run_test(cpp_sequence))
+    java_sequence = read_file(java_sequence_txt)
+
+    p_val_freq_bits_cpp = frequency_bit_test(cpp_sequence)
+    p_val_ident_bits_cpp = runs_test(cpp_sequence)
+    p_val_longest_bits_block_cpp = block_run_test(cpp_sequence)
+
+    result_cpp_test = (f"CPP sequence: {cpp_sequence}\n\n"
+                      f"Frequency bit test: {p_val_freq_bits_cpp}\n"
+                      f"Test for identical consecutive bits: {p_val_ident_bits_cpp}\n"
+                      f"Test for the longest sequence of ones in a block: "
+                      f"{p_val_longest_bits_block_cpp}")
+
+    write_file(test_results_cpp, result_cpp_test)
+
+    p_val_freq_bits_java = frequency_bit_test(java_sequence)
+    p_val_ident_bits_java = runs_test(java_sequence)
+    p_val_longest_bits_block_java = block_run_test(java_sequence)
+
+    result_java_test = (f"Java sequence: {java_sequence}\n\n"
+                      f"Frequency bit test: {p_val_freq_bits_java}\n"
+                      f"Test for identical consecutive bits: {p_val_ident_bits_java}\n"
+                      f"Test for the longest sequence of ones in a block: "
+                      f"{p_val_longest_bits_block_java}")
+
+    write_file(test_results_java, result_java_test)
 
 
 if __name__ == "__main__":
