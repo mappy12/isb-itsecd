@@ -96,17 +96,19 @@ def block_run_test(sequence: str) -> float:
             else:
                 current_run = 0
 
-        if max_run <= 1:
-            v[0] += 1
+        match max_run:
 
-        elif max_run == 2:
-            v[1] += 1
+            case 0 | 1:
+                v[0] += 1
 
-        elif max_run == 3:
-            v[2] += 1
+            case 2:
+                v[1] += 1
 
-        else:
-            v[3] += 1
+            case 3:
+                v[2] += 1
+
+            case _:
+                v[3] += 1
 
     x_2 = 0.0
 
