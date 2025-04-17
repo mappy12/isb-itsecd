@@ -81,9 +81,9 @@ def runs_test(sequence: str) -> float:
 
     v_n = 0
 
-    for i in range(n):
+    for i in range(n - 1):
 
-        if i == 0 or sequence[i] != sequence[i - 1]:
+        if sequence[i] != sequence[i + 1]:
             v_n += 1
 
     numerator = abs(v_n - 2 * n * p * (1 - p))
