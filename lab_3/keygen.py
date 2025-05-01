@@ -17,7 +17,7 @@ class SymmetricEncryption:
         return key
 
 
-class AssymetricEncryption:
+class AsymmetricEncryption:
 
     @staticmethod
     def generate_assym_key() -> tuple:
@@ -30,3 +30,26 @@ class AssymetricEncryption:
         public_key = private_key.public_key()
 
         return private_key, public_key
+
+
+    @staticmethod
+    def serialize_private_key(private_key: rsa.RSAPrivateKey, filepath: str) -> None:
+        with open(filepath, "wb") as f:
+            f.write(
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.TraditionalOpenSSL,
+                    encryption_algorithm=serialization.NoEncryption()
+                )
+            )
+
+
+    @staticmethod
+    def serialize_public_key(public_key: rsa.RSAPublicKey, filepath: str) -> None:
+        with open(filepath, "wb") as f:
+            f.write(
+                public_key.public_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
+                )
+            )
