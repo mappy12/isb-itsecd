@@ -3,8 +3,9 @@ import os
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 
-class SymmetricEncryption:
+class SymmetricKey:
 
     @staticmethod
     def generate_sym_key(key_length: int) -> bytes:
@@ -17,7 +18,15 @@ class SymmetricEncryption:
         return key
 
 
-class AsymmetricEncryption:
+    @staticmethod
+    def save_encrypted_symmetric_key(encrypted_key: bytes, path: str) -> None:
+
+        with open(path, "wb") as file:
+            file.write(encrypted_key)
+
+
+
+class AsymmetricKey:
 
     @staticmethod
     def generate_assym_key() -> tuple:
@@ -53,3 +62,18 @@ class AsymmetricEncryption:
                     format=serialization.PublicFormat.SubjectPublicKeyInfo
                 )
             )
+
+    @staticmethod
+    def load_private_key(path: str) -> RSAPrivateKey:
+        with open(path, "rb") as f:
+            private_key = serialization.load_pem_private_key(
+                f.read(),
+                password=None
+            )
+        return private_key
+
+
+    @staticmethod
+    def load_encrypted_symmetric_key(path: str) -> bytes:
+        with open(path, "rb") as f:
+            return f.read()
