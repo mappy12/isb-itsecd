@@ -1,7 +1,5 @@
-import os
-
-from Crypto.Cipher import Blowfish
-from Crypto.Util.Padding import pad
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding as sym_padding
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding as rsa_padding
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
@@ -38,14 +36,15 @@ class Encryptor:
 
     @staticmethod
     def padding(data: bytes):
-        return pad(data, Blowfish.block_size)
+        padder = sym_padding.PKCS7(algorithms.Blowfish.block_size).padder()
+
+        return padder.update(data) + padder.finalize()
 
 
     @staticmethod
     def encrypt_text(text: bytes, key: bytes) -> bytes:
 
-        cipher = Blowfish.new(key, Blowfish.MODE_ECB)
         padded_text = Encryptor.padding(text)
-        cipher_text = cipher.encrypt(padded_text)
-
-        return cipher_text
+        cipher = Cipher(algorithms.Blowfish(key), modes.ECB())
+        encryptor = cipher.encryptor()
+        return encryptor.update(padded_text) + encryptor.finalize()

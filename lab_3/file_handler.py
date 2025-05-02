@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class FileHandler:
@@ -12,11 +13,13 @@ class FileHandler:
 
     @staticmethod
     def read_file(filename: str) -> bytes:
+
         with open(filename, "rb") as file:
             return file.read()
 
 
     def write_to_file(filename: str, data: bytes) -> None:
+
         with open(filename, 'wb') as f:
             f.write(data)
 

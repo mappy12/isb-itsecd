@@ -29,6 +29,8 @@ def genereate_keys(settings: dict):
 
 def encrypt_mode(settings: dict):
 
+    print("====Режим шифрования====")
+
     encrypted_symmetric_key = AsymmetricKey.load_encrypted_symmetric_key(
         settings['encrypted_symmetric_key'])
     private_key = AsymmetricKey.load_private_key(settings['private_key'])
@@ -43,6 +45,8 @@ def encrypt_mode(settings: dict):
 
 
 def decrypt_mode(settings: dict):
+
+    print("====Режим дешифрования====")
 
     encrypted_symmetric_key = AsymmetricKey.load_encrypted_symmetric_key(
         settings['encrypted_symmetric_key'])
@@ -64,9 +68,9 @@ def main():
                         help='Путь к JSON-файлу, содержащий настройки')
 
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-gen', '--generation', help='Режим генерации ключей')
-    group.add_argument('-enc', '--encryption', help='Режим шифрования')
-    group.add_argument('-dec', '--decryption', help='Реэим дешифрования')
+    group.add_argument('-gen', '--generation', help='Режим генерации ключей', action='store_true')
+    group.add_argument('-enc', '--encryption', help='Режим шифрования', action='store_true')
+    group.add_argument('-dec', '--decryption', help='Реэим дешифрования', action='store_true')
 
     args = parser.parse_args()
 

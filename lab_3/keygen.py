@@ -50,8 +50,11 @@ class AsymmetricKey:
 
 
     @staticmethod
-    def serialize_private_key(private_key: rsa.RSAPrivateKey, filepath: str) -> None:
-        with open(filepath, "wb") as f:
+    def serialize_private_key(private_key: rsa.RSAPrivateKey, filename: str) -> None:
+
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        with open(filename, "wb") as f:
             f.write(
                 private_key.private_bytes(
                     encoding=serialization.Encoding.PEM,
@@ -62,8 +65,11 @@ class AsymmetricKey:
 
 
     @staticmethod
-    def serialize_public_key(public_key: rsa.RSAPublicKey, filepath: str) -> None:
-        with open(filepath, "wb") as f:
+    def serialize_public_key(public_key: rsa.RSAPublicKey, filename: str) -> None:
+
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        with open(filename, "wb") as f:
             f.write(
                 public_key.public_bytes(
                     encoding=serialization.Encoding.PEM,
