@@ -7,6 +7,13 @@ from file_handler import FileHandler
 
 
 def genereate_keys(settings: dict):
+    """
+    Generates symmetric and asymmetric keys,
+        encrypts the symmetric key, and saves all keys.
+
+    :param settings: Dictionary containing file paths
+    :return: None
+    """
 
     print("====Режим генерации ключей====")
 
@@ -28,6 +35,14 @@ def genereate_keys(settings: dict):
 
 
 def encrypt_mode(settings: dict):
+    """
+
+    Decrypts the symmetric key using the private key,
+        Blowfish encrypts the plaintext, and stores the ciphertext.
+
+    :param settings: Dictionary containing file paths
+    :return: None
+    """
 
     print("====Режим шифрования====")
 
@@ -45,6 +60,13 @@ def encrypt_mode(settings: dict):
 
 
 def decrypt_mode(settings: dict):
+
+    """
+    Decrypts the symmetric key using RSA and decrypts the ciphertext using Blowfish.
+
+    :param settings: Dictionary containing file paths
+    :return: None
+    """
 
     print("====Режим дешифрования====")
 
