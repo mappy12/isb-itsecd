@@ -2,7 +2,7 @@ import os
 
 from Crypto.Cipher import Blowfish
 from Crypto.Util.Padding import pad
-from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding as rsa_padding
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 
@@ -13,6 +13,22 @@ class Encryptor:
     def read_text(filename: str) -> bytes:
         with open(filename, "rb") as file:
             return file.read()
+
+
+    @staticmethod
+    def encrypt_symmetric_key(sym_key: bytes, public_key) -> bytes:
+
+        encrypted_key = public_key.encrypt(
+            sym_key,
+            rsa_padding.OAEP(
+                mgf=rsa_padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
+            )
+        )
+
+        return encrypted_key
+
 
 
     @staticmethod
@@ -39,6 +55,3 @@ class Encryptor:
         cipher_text = cipher.encrypt(padded_text)
 
         return cipher_text
-
-
-
