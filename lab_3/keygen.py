@@ -34,14 +34,6 @@ class SymmetricKey:
         return key
 
 
-    @staticmethod
-    def save_encrypted_symmetric_key(encrypted_key: bytes, path: str) -> None:
-
-        with open(path, "wb") as file:
-            file.write(encrypted_key)
-
-
-
 class AsymmetricKey:
 
     @staticmethod

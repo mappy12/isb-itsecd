@@ -10,12 +10,6 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 class Encryptor:
 
     @staticmethod
-    def read_text(filename: str) -> bytes:
-        with open(filename, "rb") as file:
-            return file.read()
-
-
-    @staticmethod
     def encrypt_symmetric_key(sym_key: bytes, public_key) -> bytes:
 
         encrypted_key = public_key.encrypt(
@@ -30,7 +24,6 @@ class Encryptor:
         return encrypted_key
 
 
-
     @staticmethod
     def decrypt_symmetric_key(encrypted_key: bytes, private_key: RSAPrivateKey) -> bytes:
         return private_key.decrypt(
@@ -41,6 +34,7 @@ class Encryptor:
                 label=None
             )
         )
+
 
     @staticmethod
     def padding(data: bytes):
