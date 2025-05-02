@@ -1,14 +1,12 @@
-from os import write
-
-from Crypto.SelfTest.Protocol.test_ecdh import private_key
+import argparse
 
 from keygen import SymmetricKey, AsymmetricKey
 from encryption import Encryptor
 from decryption import Decryptor
-from lab_3.file_handler import FileHandler
+from file_handler import FileHandler
 
 
-def genereate_keys(settings):
+def genereate_keys(settings: dict):
 
     print("====Режим генерации ключей====")
 
@@ -29,7 +27,7 @@ def genereate_keys(settings):
     print("Ключи успешно сгенерированы!")
 
 
-def encrypt_mode(settings):
+def encrypt_mode(settings: dict):
 
     encrypted_symmetric_key = AsymmetricKey.load_encrypted_symmetric_key(
         settings['encrypted_symmetric_key'])
@@ -44,7 +42,7 @@ def encrypt_mode(settings):
     print("Текст был успешно зашифрован и сохранен в файл!")
 
 
-def decrypt_mode(settings):
+def decrypt_mode(settings: dict):
 
     encrypted_symmetric_key = AsymmetricKey.load_encrypted_symmetric_key(
         settings['encrypted_symmetric_key'])
@@ -57,3 +55,32 @@ def decrypt_mode(settings):
     FileHandler.write_to_file(settings['decrypted_text'], decrypted_text)
 
     print("Текст был успешно зашифровал и сохранен в файл!")
+
+
+def main():
+
+    parser = argparse.ArgumentParser(description="ГИБРИДНАЯ КРИПТОСИСТЕМА")
+    parser.add_argument('-s', '--settings', default='settings.json',
+                        help='Путь к JSON-файлу, содержащий настройки')
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-gen', '--generation', help='Режим генерации ключей')
+    group.add_argument('-enc', '--encryption', help='Режим шифрования')
+    group.add_argument('-dec', '--decryption', help='Реэим дешифрования')
+
+    args = parser.parse_args()
+
+    settings = FileHandler.load_settings(args.settings)
+
+    if args.generation:
+        genereate_keys(settings)
+
+    elif args.encryption:
+        encrypt_mode(settings)
+
+    elif args.decryption:
+        decrypt_mode(settings)
+
+
+if __name__ == "__main__":
+    main()

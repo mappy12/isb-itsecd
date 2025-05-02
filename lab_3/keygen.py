@@ -71,6 +71,7 @@ class AsymmetricKey:
                 )
             )
 
+
     @staticmethod
     def load_private_key(path: str) -> RSAPrivateKey:
         with open(path, "rb") as f:

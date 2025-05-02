@@ -1,3 +1,6 @@
+import json
+
+
 class FileHandler:
 
     @staticmethod
@@ -16,3 +19,9 @@ class FileHandler:
     def write_to_file(filename: str, data: bytes) -> None:
         with open(filename, 'wb') as f:
             f.write(data)
+
+
+    @staticmethod
+    def load_settings(filename: str) -> dict:
+        with open(filename, 'r') as f:
+            return json.load(f)
