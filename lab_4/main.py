@@ -1,5 +1,7 @@
+from card_finder import *
+
 def main():
-    print("test")
+    print(find_card_number())
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,8 @@
 import hashlib
 import os
 
+import multiprocessing
+
 from consts import *
 
 
@@ -26,3 +28,21 @@ def check_hash(card_nums: str) -> str | None:
 
     else:
         return None
+
+
+def find_card_number() -> str | None:
+    cpu_count = get_cpu_count()
+
+    print(f"Количество доступных ядер: {cpu_count}")
+
+    with multiprocessing.Pool(cpu_count) as pool:
+
+        for bin_code in BINS:
+
+            card_nums = gen_card_nums(bin_code)
+            for result in pool.imap_unordered(check_hash, card_nums, chunksize=500):
+
+                if result:
+                    return result
+
+    return None
