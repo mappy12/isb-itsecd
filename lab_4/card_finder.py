@@ -1,5 +1,6 @@
 import hashlib
 import os
+import json
 
 import multiprocessing
 
@@ -46,3 +47,13 @@ def find_card_number() -> str | None:
                     return result
 
     return None
+
+
+def serialization(card_nums: str, path: str = "result.json") -> None:
+
+    data = {
+        "card_numbers": card_nums
+    }
+
+    with open(path, 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=2)
