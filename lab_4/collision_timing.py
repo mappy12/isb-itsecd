@@ -1,6 +1,6 @@
 import time
 
-from pandas.core.indexing import check_dict_or_set_indexers
+import matplotlib.pyplot as plt
 
 from card_finder import *
 
@@ -30,3 +30,21 @@ def collect_times(bin_code: str) -> tuple[list[int], list[float]]:
         timings.append(duration)
 
     return process_counts, timings
+
+
+def get_timing_graph(process_counts: list[int], timings: list[float]) -> None:
+    min_time = min(timings)
+    min_idx = timings.index(min_time)
+    optimal_proc = process_counts[min_idx]
+
+    plt.figure(figsize=(11,7))
+    plt.plot(process_counts, timings, color="royalblue", label="Время подбора")
+    plt.scatter(optimal_proc, min_time, color="red", label="Глобальный минимум")
+
+    plt.title("Зависимость времени подбора хэша от количества процессов")
+    plt.xlabel("Количество процессов")
+    plt.ylabel("Время (в секундах)")
+
+    plt.grid(True)
+
+    plt.show()
