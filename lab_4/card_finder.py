@@ -34,8 +34,6 @@ def check_hash(card_nums: str) -> str | None:
 def find_card_number() -> str | None:
     cpu_count = get_cpu_count()
 
-    print(f"Количество доступных ядер: {cpu_count}")
-
     with multiprocessing.Pool(cpu_count) as pool:
 
         for bin_code in BINS:

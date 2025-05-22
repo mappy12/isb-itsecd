@@ -16,3 +16,10 @@ def luhn_check(card_nums: str) -> bool:
     return sum % 10 == 0
 
 
+def is_valid(card_numbers: str) -> None:
+
+    if luhn_check(card_numbers):
+        print(f"Карта с номером {card_numbers} корректна!")
+
+    else:
+        print(f"Карта с номером {card_numbers} НЕкорректна!")
